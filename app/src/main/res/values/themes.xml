@@ -11,8 +11,10 @@
         <item name="colorSecondaryVariant">@color/colorPrimary</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/neo_black</item>
+        <item name="android:navigationBarColor">@color/neo_black</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
+        <item name="android:windowBackground">@color/neo_black</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -43,32 +45,32 @@
     <style name="Bold" parent="Widget.MaterialComponents.TextView">
         <item name="android:fontFamily">@font/raleway_bold</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/neo_black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Light" parent="Widget.MaterialComponents.TextView">
         <item name="android:fontFamily">@font/raleway_light</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/neo_black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Regular" parent="Widget.MaterialComponents.TextView">
         <item name="android:fontFamily">@font/raleway_regular</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/neo_black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 
     <style name="SemiBold" parent="Widget.MaterialComponents.TextView">
         <item name="android:fontFamily">@font/raleway_semibold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/neo_black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Medium" parent="Widget.MaterialComponents.TextView">
         <item name="android:fontFamily">@font/raleway_medium</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/neo_black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 

@@ -14,48 +14,50 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 
-class TweetAdapter(private val context:Context, itemCallback:DefaultItemCallBack) : ListAdapter<String, TweetAdapter.QuoteViewHolder>(itemCallback) {
+class TweetAdapter(private val context:Context, itemCallback:DefaultItemCallBack) : ListAdapter<String, TweetViewHolder>(itemCallback) {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuoteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TweetViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_tweet_item, parent, false)
-        return QuoteViewHolder(view)
+        return TweetViewHolder(context, view)
     }
 
-    override fun onBindViewHolder(holder: QuoteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TweetViewHolder, position: Int) {
 
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return 1
     }
+}
 
-    inner class QuoteViewHolder(view:View) : RecyclerView.ViewHolder(view){
-        private val recyclerView = view.findViewById<RecyclerView>(R.id.replies_recycler_view)
-        private val imagesRecyclerView = view.findViewById<RecyclerView>(R.id.images_recycler_view)
+abstract class BaseTweetViewHolder(context: Context, view:View) : RecyclerView.ViewHolder(view){
+    val imagesRecyclerView = view.findViewById<RecyclerView>(R.id.images_recycler_view)
 
-        init {
-            val layoutManager = LinearLayoutManager(context)
-            val adapter = RepliesAdapter(DefaultItemCallBack())
-            val itemDecoration = CustomItemDecoration(5, 0)
+    init{
+        val layoutManager = FlexboxLayoutManager(context,FlexDirection.ROW, FlexWrap.WRAP)
 
-            recyclerView.layoutManager = layoutManager
-            recyclerView.addItemDecoration(itemDecoration)
-            recyclerView.adapter = adapter
+        val margin = 10
+        imagesRecyclerView.layoutManager = layoutManager
+        val itemDecoration = CustomItemDecoration(margin)
 
-            initImageRecyclerView()
-        }
+        imagesRecyclerView.addItemDecoration(itemDecoration)
+        val adapter = ImagesAdapter(DefaultItemCallBack(), margin)
+        imagesRecyclerView.adapter = adapter
+    }
+}
 
-        private fun initImageRecyclerView(){
-            val layoutManager = FlexboxLayoutManager(context,FlexDirection.ROW, FlexWrap.WRAP)
+ class TweetViewHolder(context:Context, view:View) : BaseTweetViewHolder(context, view){
+    private val recyclerView = view.findViewById<RecyclerView>(R.id.replies_recycler_view)
 
-            val margin = 10
-            imagesRecyclerView.layoutManager = layoutManager
-            val itemDecoration = CustomItemDecoration(margin)
+    init {
+        val layoutManager = LinearLayoutManager(context)
+        val adapter = RepliesAdapter(context, DefaultItemCallBack())
+        val itemDecoration = CustomItemDecoration(5, 0)
 
-            imagesRecyclerView.addItemDecoration(itemDecoration)
-            val adapter = ImagesAdapter(DefaultItemCallBack(), margin)
-            imagesRecyclerView.adapter = adapter
-        }
+        recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(itemDecoration)
+        recyclerView.adapter = adapter
+
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.echoeyecodes.mia.R
-import com.echoeyecodes.mia.adapters.SingleTweetAdapter
 import com.echoeyecodes.mia.adapters.TweetAdapter
 import com.echoeyecodes.mia.utils.CustomItemDecoration
 import com.echoeyecodes.mia.utils.DefaultItemCallBack
@@ -21,7 +20,10 @@ class TweetActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val itemDecoration = CustomItemDecoration(10, 15)
-        val adapter = SingleTweetAdapter(this, DefaultItemCallBack())
+
+        //only one item should be submitted to this adapter sin'ce it details full details for a single
+        // tweet
+        val adapter = TweetAdapter(this, DefaultItemCallBack())
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(itemDecoration)

@@ -8,11 +8,19 @@
     app:cardBackgroundColor="#25282b"
     android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lorem"
-            android:textColor="@color/white"
-            style="@style/Regular"
-            />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lorem"
+                    android:textColor="@color/white"
+                    style="@style/Regular"
+                    />
+
+                <include layout="@layout/layout_tweet_images" />
+        </LinearLayout>
 </androidx.cardview.widget.CardView>

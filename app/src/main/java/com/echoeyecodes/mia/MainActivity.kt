@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.echoeyecodes.mia.adapters.TweetAdapter
+import com.echoeyecodes.mia.fragments.dialogframents.AddTweetDialogFragment
 import com.echoeyecodes.mia.utils.CustomItemDecoration
 import com.echoeyecodes.mia.utils.DefaultItemCallBack
 
@@ -24,5 +25,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(itemDecoration)
         recyclerView.adapter = adapter
+
+        showAddTweetDialog()
+    }
+
+    private fun showAddTweetDialog(){
+        val fragment = AddTweetDialogFragment()
+        fragment.show(supportFragmentManager, "ADD_TWEET_DIALOG_FRAGMENT")
     }
 }

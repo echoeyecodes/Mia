@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_sub_activity_toolbar" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter title"
+        style="@style/Medium"
+        android:background="@null"
+        android:textColorHint="@color/grey"
+        android:paddingHorizontal="20dp"
+        android:maxLines="1"
+        android:inputType="textCapSentences"
+        android:paddingVertical="10dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Regular"
+        android:background="@null"
+        android:textColorHint="@color/grey"
+        android:hint="Just go crazy!!"
+        android:inputType="textCapSentences|textMultiLine"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:gravity="top"
+        android:lineSpacingExtra="5dp"
+        />
+
+</LinearLayout>

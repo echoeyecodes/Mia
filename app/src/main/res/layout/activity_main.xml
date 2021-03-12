@@ -1,19 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/neo_black"
     tools:context=".MainActivity">
 
     <include android:id="@+id/toolbar" layout="@layout/layout_toolbar" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@id/toolbar"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:id="@+id/tab_layout"
+            style="@style/TabLayoutStyle"
+            android:layout_height="wrap_content" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tab_layout"
+            android:layout_marginBottom="56dp"
+            />
+        </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_task_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_add"
+        app:layout_anchor="@id/bottom_app_bar"
+        android:backgroundTint="@color/white"
         />
 
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:theme="@style/CustomBottomAppBarStyle"
+            android:layout_gravity="bottom"
+            android:id="@+id/bottom_app_bar"
+            />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>

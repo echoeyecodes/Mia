@@ -2,35 +2,52 @@ package com.echoeyecodes.mia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.echoeyecodes.mia.adapters.TweetAdapter
-import com.echoeyecodes.mia.fragments.dialogframents.AddTweetDialogFragment
-import com.echoeyecodes.mia.utils.CustomItemDecoration
-import com.echoeyecodes.mia.utils.DefaultItemCallBack
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.echoeyecodes.mia.fragments.dialogframents.NoteFragment
+import com.echoeyecodes.mia.fragments.dialogframents.PomodoroFragment
+import com.echoeyecodes.mia.fragments.dialogframents.TodoFragment
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout:TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById(R.id.recycler_view)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val itemDecoration = CustomItemDecoration(10, 15)
-        val adapter = TweetAdapter(this, DefaultItemCallBack())
+        viewPager = findViewById(R.id.view_pager)
+        tabLayout = findViewById(R.id.tab_layout)
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(itemDecoration)
-        recyclerView.adapter = adapter
 
-        showAddTweetDialog()
+        viewPager.adapter = ViewPagerAdapter(this)
+
+        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+            when(position){
+                0 -> tab.text = "NOTES"
+                1 -> tab.text = "TODO"
+                2 -> tab.text = "POMODORO"
+            }
+        }.attach()
     }
 
-    private fun showAddTweetDialog(){
-        val fragment = AddTweetDialogFragment()
-        fragment.show(supportFragmentManager, "ADD_TWEET_DIALOG_FRAGMENT")
+    private class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity){
+
+        override fun getItemCount(): Int {
+            return 3
+        }
+
+        override fun createFragment(position: Int): Fragment {
+            return when(position){
+                0 -> NoteFragment()
+                1 -> TodoFragment()
+                else -> PomodoroFragment()
+            }
+        }
     }
 }

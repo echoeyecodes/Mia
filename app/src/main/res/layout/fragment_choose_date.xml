@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/fragment_choose_date_root_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:padding="10dp"
+    android:gravity="center_vertical"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Regular"
+            android:text="Repeat"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/repeat_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/repeat_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/repeat_controller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Regular"
+                android:text="Every"
+                android:layout_marginEnd="10dp"
+                />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Regular"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:maxLength="2"
+                android:maxLines="1"
+                android:inputType="number"
+                android:background="@drawable/drawable_date_time_field_background"
+                android:text="1"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="10dp"
+                />
+
+            <TextView
+                android:id="@+id/date_type_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Regular"
+                android:paddingVertical="10dp"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+                android:drawablePadding="5dp"
+                android:background="@drawable/drawable_date_time_field_background"
+                />
+        </LinearLayout>
+
+        <include android:id="@+id/repeat_week_layout" layout="@layout/layout_week_recycler_view" />
+        <include android:id="@+id/repeat_month_layout" layout="@layout/layout_month_dropdown_view" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Regular"
+            android:text="Start"
+            android:layout_marginEnd="10dp"
+            />
+
+        <TextView
+            android:id="@+id/date_picker_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Regular"
+            android:text="December 16"
+            android:paddingVertical="10dp"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingHorizontal="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:drawablePadding="5dp"
+            android:background="@drawable/drawable_date_time_field_background"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/time_picker_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Regular"
+        android:text="Set time"
+        android:paddingVertical="10dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingHorizontal="15dp"
+        android:layout_marginVertical="10dp"
+        android:drawablePadding="5dp"
+        android:background="@drawable/drawable_date_time_field_background"
+        />
+
+    <include layout="@layout/layout_choose_date_btns" />
+</LinearLayout>

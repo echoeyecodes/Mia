@@ -124,4 +124,21 @@
         <item name="tabBackground">@drawable/drawable_tab_layout</item>
     </style>
 
+    <style name="TabTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/avenir_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="TaskEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="hintTextAppearance">@style/TabTextAppearance</item>
+        <item name="android:textAppearance">@style/TabTextAppearance</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="">
+        <item name="android:background">@drawable/drawable_bottom_sheet_light</item>
+    </style>
+
 </resources>

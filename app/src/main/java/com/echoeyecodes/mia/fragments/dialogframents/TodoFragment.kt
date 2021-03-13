@@ -28,7 +28,7 @@ class TodoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val layoutManager = LinearLayoutManager(requireContext())
-        val itemDecoration = CustomItemDecoration(10)
+        val itemDecoration = CustomItemDecoration(15)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(itemDecoration)

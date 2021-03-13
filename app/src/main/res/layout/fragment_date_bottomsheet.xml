@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="@style/CustomBottomSheet"
+    android:layout_height="match_parent">
+
+    <include android:id="@+id/bottom_sheet_header" layout="@layout/layout_bottomsheet_header" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/date_bottomsheet_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottom_sheet_header"
+        />
+
+</RelativeLayout>

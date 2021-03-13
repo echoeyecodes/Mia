@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginVertical="10dp"
+    android:gravity="center_vertical"
+    android:visibility="gone"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        />
+
+    <TextView
+        android:id="@+id/month_picker_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Regular"
+        android:text="Day 17"
+        android:paddingVertical="10dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingHorizontal="15dp"
+        android:layout_marginVertical="10dp"
+        android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+        android:drawablePadding="5dp"
+        android:background="@drawable/drawable_date_time_field_background"
+        />
+</LinearLayout>

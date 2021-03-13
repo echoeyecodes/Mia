@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.echoeyecodes.jinx.fragments.BottomSheetFragments.CreateTodoDialogFragment
 import com.echoeyecodes.mia.fragments.dialogframents.NoteFragment
 import com.echoeyecodes.mia.fragments.dialogframents.PomodoroFragment
 import com.echoeyecodes.mia.fragments.dialogframents.TodoFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout:TabLayout
+    private lateinit var addBtn:FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         viewPager = findViewById(R.id.view_pager)
         tabLayout = findViewById(R.id.tab_layout)
+        addBtn = findViewById(R.id.add_btn)
 
 
         viewPager.adapter = ViewPagerAdapter(this)
@@ -34,6 +38,11 @@ class MainActivity : AppCompatActivity() {
                 2 -> tab.text = "POMODORO"
             }
         }.attach()
+
+        addBtn.setOnClickListener {
+            val fragment = CreateTodoDialogFragment()
+            fragment.show(supportFragmentManager, "CREATE_TODO_DIALOG_FRAGMENT")
+        }
     }
 
     private class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity){

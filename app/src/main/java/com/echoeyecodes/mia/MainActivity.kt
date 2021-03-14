@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.echoeyecodes.jinx.fragments.BottomSheetFragments.CreateTodoDialogFragment
-import com.echoeyecodes.mia.fragments.dialogframents.NoteFragment
-import com.echoeyecodes.mia.fragments.dialogframents.PomodoroFragment
-import com.echoeyecodes.mia.fragments.dialogframents.TodoFragment
+import com.echoeyecodes.mia.fragments.tabfragments.NoteFragment
+import com.echoeyecodes.mia.fragments.tabfragments.PomodoroFragment
+import com.echoeyecodes.mia.fragments.tabfragments.TodoFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

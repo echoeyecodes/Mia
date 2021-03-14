@@ -1,16 +1,11 @@
-package com.echoeyecodes.mia.fragments.dialogframents
+package com.echoeyecodes.mia.fragments.tabfragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.echoeyecodes.mia.R
-import com.echoeyecodes.mia.adapters.NoteAdapter
-import com.echoeyecodes.mia.utils.CustomItemDecoration
-import com.echoeyecodes.mia.utils.DefaultItemCallBack
 
 class PomodoroFragment : Fragment() {
 

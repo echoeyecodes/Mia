@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:gravity="center_vertical"
-    tools:showIn="@layout/fragment_choose_date"
+    tools:showIn="@layout/fragment_schedule"
     android:layout_gravity="end"
     android:layout_height="wrap_content">
 

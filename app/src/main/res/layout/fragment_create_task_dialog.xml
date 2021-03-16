@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             style="@style/TaskEditText"
             android:hint="Enter task"
+            android:inputType="textCapSentences"
             android:padding="10dp"
-            android:inputType="text"
             android:maxLines="1"
             />
 
@@ -52,6 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TaskEditText"
+        android:maxLines="2"
+        android:inputType="textCapSentences"
         android:hint="Enter description"
         android:padding="10dp"
         />
@@ -87,6 +89,7 @@
             android:gravity="center_vertical"
             android:layout_marginHorizontal="5dp"
             android:padding="5dp"
+            style="@style/Regular"
             android:layout_marginStart="10dp"
             android:drawableTint="@color/colorPrimary"
             />
@@ -100,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DONE"
-            style="@style/Widget.MaterialComponents.Button.TextButton" />
+            style="@style/ActionButton" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

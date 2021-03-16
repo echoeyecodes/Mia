@@ -1,6 +1,8 @@
 package com.echoeyecodes.jinx.models
 
-data class TaskTimeModel(val hour:Int, val minute:Int){
+import java.io.Serializable
+
+data class TaskTimeModel(val hour:Int, val minute:Int) : Serializable{
 
     fun formatTimeDigits(value:Int) : String{
         val digit = "0$value"

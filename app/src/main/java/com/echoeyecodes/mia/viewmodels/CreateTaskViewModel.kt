@@ -2,13 +2,9 @@ package com.echoeyecodes.jinx.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.echoeyecodes.jinx.models.TaskDateModel
 import com.echoeyecodes.jinx.models.TaskTimeModel
-import com.echoeyecodes.jinx.utils.DaysModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.echoeyecodes.mia.models.DaysModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -52,14 +48,9 @@ class CreateTaskViewModel : ViewModel() {
 
     fun setSelectedDays(idx:Int){
         val previousList = ArrayList(days.value!!)
-
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                val focus = previousList[idx]
-                previousList[idx] = focus.copy(selected = !focus.selected)
-                days.postValue(previousList)
-            }
-        }
+        val focus = previousList[idx]
+        previousList[idx] = focus.copy(selected = !focus.selected)
+        days.postValue(previousList)
         
     }
 }

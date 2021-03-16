@@ -1,5 +1,6 @@
 package com.echoeyecodes.mia.fragments.dialogfragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -9,45 +10,66 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.echoeyecodes.jinx.adapters.RepeatWeekAdapter
-import com.echoeyecodes.jinx.fragments.BottomSheetFragments.SelectTimeFragment
-import com.echoeyecodes.jinx.fragments.DatePickerDialogFragment
-import com.echoeyecodes.jinx.fragments.TimePickerDialogFragment
 import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.models.TaskDateModel
 import com.echoeyecodes.jinx.models.TaskTimeModel
 import com.echoeyecodes.jinx.utils.DaysItemCallback
 import com.echoeyecodes.jinx.viewmodel.CreateTaskViewModel
 import com.echoeyecodes.mia.R
-import com.google.android.flexbox.AlignItems
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
+import com.echoeyecodes.mia.fragments.bottomsheets.SelectTimeFragment
+import com.echoeyecodes.mia.utils.AndroidUtilities
+import com.echoeyecodes.mia.utils.CustomItemDecoration
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 
-class ScheduleFragment(private val listener:CreateTaskFragmentInterface) : DialogFragment() {
+
+class ScheduleFragment() : DialogFragment() {
     private lateinit var dateTypeBtn:TextView
     private lateinit var monthDaysLayout : LinearLayout
     private lateinit var monthDaysBtn:TextView
-    private lateinit var selectTimeFragment : SelectTimeFragment
     private lateinit var datePickerDialogFragment : DatePickerDialogFragment
     private lateinit var timePickerDialogFragment : TimePickerDialogFragment
     private lateinit var viewModel: CreateTaskViewModel
     private lateinit var weekDaysRecyclerView : RecyclerView
+    private lateinit var listener: CreateTaskFragmentInterface
 
+    companion object {
+        fun newInstance() =  ScheduleFragment()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as CreateTaskFragmentInterface
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setStyle(STYLE_NORMAL, R.style.CustomAlertDialog)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(CreateTaskViewModel::class.java)
+        viewModel = ViewModelProvider(requireParentFragment()).get(CreateTaskViewModel::class.java)
+
         dateTypeBtn = view.findViewById(R.id.date_type_btn)
         val datePickerBtn = view.findViewById<TextView>(R.id.date_picker_btn)
         val timePickerBtn = view.findViewById<TextView>(R.id.time_picker_btn)
@@ -74,9 +96,10 @@ class ScheduleFragment(private val listener:CreateTaskFragmentInterface) : Dialo
             }
         })
 
+
+
         val selectedDate = viewModel.selectedDateLiveData
         val selectedTime = viewModel.selectedTimeLiveData
-
         selectedDate.observe(this, {
             datePickerBtn.text = it.getMonth().plus(" ").plus(it.date).plus(", ").plus(it.year)
         })
@@ -115,14 +138,14 @@ class ScheduleFragment(private val listener:CreateTaskFragmentInterface) : Dialo
             }
         })
 
-        val date = TaskDateModel(selectedDate.value!!.date, selectedDate.value!!.month, selectedDate.value!!.year)
-        val time = TaskTimeModel(selectedTime.value!!.hour, selectedTime.value!!.minute)
+            val date = TaskDateModel(selectedDate.value!!.date, selectedDate.value!!.month, selectedDate.value!!.year)
+            val time = TaskTimeModel(selectedTime.value!!.hour, selectedTime.value!!.minute)
 
-        datePickerDialogFragment = DatePickerDialogFragment( date, listener)
-        timePickerDialogFragment = TimePickerDialogFragment(time, listener)
+            datePickerDialogFragment = DatePickerDialogFragment.newInstance(date)
+            timePickerDialogFragment = TimePickerDialogFragment.newInstance(time)
 
-        datePickerBtn.setOnClickListener { openDialogFragment(childFragmentManager, datePickerDialogFragment, "DATE_PICKER_FRAGMENT") }
-        timePickerBtn.setOnClickListener { openDialogFragment(childFragmentManager, timePickerDialogFragment, "TIME_PICKER_FRAGMENT") }
+            datePickerBtn.setOnClickListener { openDialogFragment(childFragmentManager, datePickerDialogFragment, "DATE_PICKER_FRAGMENT") }
+            timePickerBtn.setOnClickListener { openDialogFragment(childFragmentManager, timePickerDialogFragment, "TIME_PICKER_FRAGMENT") }
 
         monthDaysBtn.setOnClickListener { inflateMonthOptions(it, R.menu.menu_month_days) }
 
@@ -143,7 +166,7 @@ class ScheduleFragment(private val listener:CreateTaskFragmentInterface) : Dialo
 
     private fun inflateMonthOptions(view:View, menu:Int){
         val popup = PopupMenu(requireContext(), view)
-        popup.menuInflater.inflate(menu, popup!!.menu)
+        popup.menuInflater.inflate(menu, popup.menu)
         popup.show()
 
         popup.setOnMenuItemClickListener {
@@ -254,19 +277,22 @@ class ScheduleFragment(private val listener:CreateTaskFragmentInterface) : Dialo
 
     private fun initWeekRecyclerView(){
         weekDaysRecyclerView = requireView().findViewById(R.id.repeat_week_layout)
-        val layoutManager = FlexboxLayoutManager(requireContext())
-        layoutManager.flexWrap = FlexWrap.NOWRAP
-        layoutManager.justifyContent = JustifyContent.SPACE_BETWEEN
-        layoutManager.alignItems = AlignItems.CENTER
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val itemDecoration = CustomItemDecoration(5)
+        weekDaysRecyclerView.addItemDecoration(itemDecoration)
 
         weekDaysRecyclerView.let {recyclerView ->
-            recyclerView.layoutManager = layoutManager
-            val adapter = RepeatWeekAdapter(DaysItemCallback(), requireContext(), listener)
-            recyclerView.adapter = adapter
 
-            viewModel.days.observe(viewLifecycleOwner, {value ->
-                adapter.submitList(value)
-            })
+            listener?.let{ext ->
+                recyclerView.layoutManager = layoutManager
+                val adapter = RepeatWeekAdapter(DaysItemCallback(), ext)
+                recyclerView.adapter = adapter
+
+                viewModel.days.observe(viewLifecycleOwner, {value ->
+                    adapter.submitList(ArrayList(value))
+                })
+            }
+
         }
     }
 

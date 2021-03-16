@@ -1,6 +1,8 @@
 package com.echoeyecodes.jinx.models
 
-data class TaskDateModel(val date:Int, val month:Int, val year:Int){
+import java.io.Serializable
+
+data class TaskDateModel(val date:Int, val month:Int, val year:Int) : Serializable{
 
     fun getMonth() : String{
         return when(month){

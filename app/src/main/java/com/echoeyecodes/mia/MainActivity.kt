@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.echoeyecodes.jinx.fragments.BottomSheetFragments.CreateTodoDialogFragment
+import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
+import com.echoeyecodes.jinx.models.TaskDateModel
+import com.echoeyecodes.jinx.models.TaskTimeModel
+import com.echoeyecodes.mia.fragments.bottomsheets.CreateTodoDialogFragment
 import com.echoeyecodes.mia.fragments.tabfragments.NoteFragment
 import com.echoeyecodes.mia.fragments.tabfragments.PomodoroFragment
 import com.echoeyecodes.mia.fragments.tabfragments.TodoFragment
@@ -14,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CreateTaskFragmentInterface {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout:TabLayout
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         addBtn = findViewById(R.id.add_btn)
 
 
+        viewPager.offscreenPageLimit = 3
         viewPager.adapter = ViewPagerAdapter(this)
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
@@ -40,8 +44,14 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
         addBtn.setOnClickListener {
-            val fragment = CreateTodoDialogFragment()
-            fragment.show(supportFragmentManager, "CREATE_TODO_DIALOG_FRAGMENT")
+            val transaction = supportFragmentManager.beginTransaction()
+            val frag = supportFragmentManager.findFragmentByTag("CREATE_TODO_DIALOG_FRAGMENT")
+            if(frag != null){
+                transaction.remove(frag)
+            }
+            transaction.addToBackStack(null)
+            val fragment = CreateTodoDialogFragment.newInstance()
+            fragment.show(transaction, "CREATE_TODO_DIALOG_FRAGMENT")
         }
     }
 
@@ -58,5 +68,33 @@ class MainActivity : AppCompatActivity() {
                 else -> PomodoroFragment()
             }
         }
+    }
+
+    private fun getTaskFragment() : CreateTodoDialogFragment?{
+        return supportFragmentManager.findFragmentByTag(CreateTodoDialogFragment.TAG) as CreateTodoDialogFragment?
+    }
+
+    override fun openDateTimeDialog() {
+        getTaskFragment()?.openDateTimeDialog()
+    }
+
+    override fun onDateSelected(date: TaskDateModel) {
+        getTaskFragment()?.onDateSelected(date)
+    }
+
+    override fun onTimeSelected(time: TaskTimeModel) {
+        getTaskFragment()?.onTimeSelected(time)
+    }
+
+    override fun setDateType(idx: Int) {
+        getTaskFragment()?.setDateType(idx)
+    }
+
+    override fun onDefaultDateTimeSelected(date: TaskDateModel, time: TaskTimeModel) {
+        getTaskFragment()?.onDefaultDateTimeSelected(date, time)
+    }
+
+    override fun setIgnoreDateTime(value: Boolean) {
+        getTaskFragment()?.setIgnoreDateTime(value)
     }
 }

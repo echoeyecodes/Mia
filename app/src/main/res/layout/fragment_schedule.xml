@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--apparently padding top and bottoms must be added to be in sync with the padding insets set in drawable-->
 <LinearLayout
     android:id="@+id/fragment_choose_date_root_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:animateLayoutChanges="true"
-    android:padding="10dp"
+    android:paddingStart="35dp"
+    android:paddingVertical="10dp"
+    android:paddingEnd="35dp"
+    style="@style/AlertDialogStyle"
     android:gravity="center_vertical"
     android:layout_height="wrap_content">
 

@@ -18,6 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="Tomorrow"
         style="@style/Regular"
+        android:drawableTint="@color/white"
         android:drawableStart="@drawable/ic_tomorrow"
         android:drawablePadding="10dp"
         android:layout_height="wrap_content" />

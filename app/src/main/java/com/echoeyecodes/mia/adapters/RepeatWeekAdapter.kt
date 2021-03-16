@@ -1,6 +1,5 @@
 package com.echoeyecodes.jinx.adapters
 
-import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.utils.DaysItemCallback
-import com.echoeyecodes.jinx.utils.DaysModel
+import com.echoeyecodes.mia.models.DaysModel
 import com.echoeyecodes.mia.R
 
-class RepeatWeekAdapter(itemCallback: DaysItemCallback, private val context: Context, private val fragmentListener:CreateTaskFragmentInterface) : ListAdapter<DaysModel, RepeatWeekAdapter.RepeatWeekViewHolder>(itemCallback) {
+class RepeatWeekAdapter(itemCallback: DaysItemCallback, private val fragmentListener:CreateTaskFragmentInterface) : ListAdapter<DaysModel, RepeatWeekAdapter.RepeatWeekViewHolder>(itemCallback) {
 
     companion object {
         const val UNSELECTED = 0
@@ -33,10 +32,10 @@ class RepeatWeekAdapter(itemCallback: DaysItemCallback, private val context: Con
         val textView = view.findViewById<TextView>(R.id.repeat_week_item_text)
         when(viewType){
             SELECTED -> {
-                view.background = AppCompatResources.getDrawable(context, R.drawable.drawable_week_recycler_view_selected)
+                view.background = AppCompatResources.getDrawable(view.context, R.drawable.drawable_week_recycler_view_selected)
                 textView.setTextColor(Color.WHITE)
             }else -> {
-            view.background = AppCompatResources.getDrawable(context, R.drawable.drawable_week_recycler_view)
+            view.background = AppCompatResources.getDrawable(view.context, R.drawable.drawable_week_recycler_view)
             textView.setTextColor(Color.BLACK)
             }
         }

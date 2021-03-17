@@ -10,22 +10,17 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.echoeyecodes.jinx.adapters.RepeatWeekAdapter
-import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
+import com.echoeyecodes.mia.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.models.TaskDateModel
 import com.echoeyecodes.jinx.models.TaskTimeModel
 import com.echoeyecodes.jinx.utils.DaysItemCallback
-import com.echoeyecodes.jinx.viewmodel.CreateTaskViewModel
+import com.echoeyecodes.mia.viewmodels.CreateTaskViewModel
 import com.echoeyecodes.mia.R
-import com.echoeyecodes.mia.fragments.bottomsheets.SelectTimeFragment
-import com.echoeyecodes.mia.utils.AndroidUtilities
 import com.echoeyecodes.mia.utils.CustomItemDecoration
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -42,6 +37,7 @@ class ScheduleFragment() : DialogFragment() {
     private lateinit var listener: CreateTaskFragmentInterface
 
     companion object {
+        const val TAG = "SCHEDULE_FRAGMENT"
         fun newInstance() =  ScheduleFragment()
     }
 
@@ -52,7 +48,6 @@ class ScheduleFragment() : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setStyle(STYLE_NORMAL, R.style.CustomAlertDialog)
     }
 
@@ -73,7 +68,6 @@ class ScheduleFragment() : DialogFragment() {
         dateTypeBtn = view.findViewById(R.id.date_type_btn)
         val datePickerBtn = view.findViewById<TextView>(R.id.date_picker_btn)
         val timePickerBtn = view.findViewById<TextView>(R.id.time_picker_btn)
-        val cancelBtn = view.findViewById<MaterialButton>(R.id.fragment_task_time_cancel_btn)
         val doneBtn = view.findViewById<MaterialButton>(R.id.fragment_task_time_done_btn)
 
         val repeatSwitch = view.findViewById<SwitchMaterial>(R.id.repeat_switch)
@@ -83,7 +77,6 @@ class ScheduleFragment() : DialogFragment() {
         monthDaysBtn = view.findViewById(R.id.month_picker_btn)
 
         initWeekRecyclerView()
-
 
         dateTypeBtn.setOnClickListener { openDateTypeList(dateTypeBtn, R.menu.menu_recurring_dates_option) }
         viewModel.shouldRepeat.observe(this, {
@@ -95,8 +88,6 @@ class ScheduleFragment() : DialogFragment() {
                 repeatContainer.visibility = View.GONE
             }
         })
-
-
 
         val selectedDate = viewModel.selectedDateLiveData
         val selectedTime = viewModel.selectedTimeLiveData
@@ -153,14 +144,13 @@ class ScheduleFragment() : DialogFragment() {
             viewModel.shouldRepeat.value = isChecked
         }
 
-        cancelBtn.setOnClickListener { dismiss() }
         doneBtn.setOnClickListener {
-            dismiss()
             onDateTimeSelected()
         }
     }
 
     private fun onDateTimeSelected() {
+        dismiss()
         // Collect data to task fragment, then
     }
 

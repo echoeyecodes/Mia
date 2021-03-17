@@ -4,20 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
+import com.echoeyecodes.mia.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.models.TaskDateModel
 import com.echoeyecodes.jinx.models.TaskTimeModel
-import com.echoeyecodes.jinx.viewmodel.CreateTaskViewModel
+import com.echoeyecodes.mia.viewmodels.CreateTaskViewModel
 import com.echoeyecodes.mia.R
 import com.echoeyecodes.mia.fragments.dialogfragments.ScheduleFragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -30,7 +26,7 @@ class CreateTodoDialogFragment : BottomSheetDialogFragment(), CreateTaskFragment
     private lateinit var titleEditText: TextInputEditText
     private lateinit var descriptionTextContainer:TextInputLayout
     private lateinit var viewModel: CreateTaskViewModel
-    private var selectTimeFragment: SelectTimeFragment? = null
+    private var scheduleFragment: ScheduleFragment? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,17 +52,8 @@ class CreateTodoDialogFragment : BottomSheetDialogFragment(), CreateTaskFragment
             descriptionTextContainer.visibility = View.VISIBLE
         }
 
-        selectTimeFragment = getSelectTimeFragment()
-        dateBtn.setOnClickListener { selectTimeFragment?.show(childFragmentManager, SelectTimeFragment.TAG) }
-
-
-        viewModel.ignoreDateTime.observe(this, {
-            if (it) {
-                dateBtn.text = "Unassigned"
-            } else {
-                dateBtn.text = viewModel.selectedDateToString()
-            }
-        })
+        scheduleFragment = getScheduleFragment()
+        dateBtn.setOnClickListener { scheduleFragment?.show(childFragmentManager, ScheduleFragment.TAG) }
 
         viewModel.selectedTimeLiveData.observe(this, {
             dateBtn.text = viewModel.selectedDateToString()
@@ -77,15 +64,9 @@ class CreateTodoDialogFragment : BottomSheetDialogFragment(), CreateTaskFragment
         })
     }
 
-    private fun getSelectTimeFragment(): SelectTimeFragment{
-        val fragment = childFragmentManager.findFragmentByTag(SelectTimeFragment.TAG) as SelectTimeFragment?
-        return fragment ?: SelectTimeFragment.newInstance()
-    }
-
-    override fun openDateTimeDialog() {
-        val fragment = ScheduleFragment.newInstance()
-        fragment.show(childFragmentManager, "SCHEDULE_FRAGMENT")
-        selectTimeFragment?.dismiss()
+    private fun getScheduleFragment(): ScheduleFragment{
+        val fragment = childFragmentManager.findFragmentByTag(ScheduleFragment.TAG) as ScheduleFragment?
+        return fragment ?: ScheduleFragment.newInstance()
     }
 
     override fun onDateSelected(date: TaskDateModel) {
@@ -99,18 +80,6 @@ class CreateTodoDialogFragment : BottomSheetDialogFragment(), CreateTaskFragment
 
     override fun setDateType(idx: Int) {
         viewModel.setSelectedDays(idx)
-    }
-
-    override fun onDefaultDateTimeSelected(date: TaskDateModel, time: TaskTimeModel) {
-        run {
-            onDateSelected(date)
-            onTimeSelected(time)
-            selectTimeFragment?.dismiss()
-        }
-    }
-
-    override fun setIgnoreDateTime(value: Boolean) {
-        viewModel.ignoreDateTime.value = value
     }
 
     companion object {

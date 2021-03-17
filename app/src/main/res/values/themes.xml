@@ -114,7 +114,7 @@
         <item name="cornerRadius">20dp</item>
     </style>
 
-    <style name="ActionButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="ActionButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>

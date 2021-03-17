@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
+import com.echoeyecodes.mia.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.utils.DaysItemCallback
 import com.echoeyecodes.mia.models.DaysModel
 import com.echoeyecodes.mia.R
 
-class RepeatWeekAdapter(itemCallback: DaysItemCallback, private val fragmentListener:CreateTaskFragmentInterface) : ListAdapter<DaysModel, RepeatWeekAdapter.RepeatWeekViewHolder>(itemCallback) {
+class RepeatWeekAdapter(itemCallback: DaysItemCallback, private val fragmentListener: CreateTaskFragmentInterface) : ListAdapter<DaysModel, RepeatWeekAdapter.RepeatWeekViewHolder>(itemCallback) {
 
     companion object {
         const val UNSELECTED = 0

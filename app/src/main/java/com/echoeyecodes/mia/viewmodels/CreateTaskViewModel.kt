@@ -1,4 +1,4 @@
-package com.echoeyecodes.jinx.viewmodel
+package com.echoeyecodes.mia.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,6 @@ class CreateTaskViewModel : ViewModel() {
     val selectedDateLiveData = MutableLiveData<TaskDateModel>()
     val selectedTimeLiveData = MutableLiveData<TaskTimeModel>()
     val shouldRepeat = MutableLiveData<Boolean>()
-    val ignoreDateTime = MutableLiveData(true)
     val days = MutableLiveData<List<DaysModel>>()
     var dateType = MutableLiveData(0)
     val monthDate = MutableLiveData(1)
@@ -28,7 +27,7 @@ class CreateTaskViewModel : ViewModel() {
         selectedDateLiveData.value = now
         selectedTimeLiveData.value = timeNow
         shouldRepeat.value = false
-        days.value = listOf(DaysModel("S", false), DaysModel("M", true), DaysModel("T", false), DaysModel("W", false), DaysModel("T", false), DaysModel("F", false), DaysModel("S", false), )
+        days.value = listOf(DaysModel("S", false), DaysModel("M", false), DaysModel("T", false), DaysModel("W", false), DaysModel("T", false), DaysModel("F", false), DaysModel("S", false), )
     }
 
     fun selectedDateToString() : String{
@@ -36,7 +35,6 @@ class CreateTaskViewModel : ViewModel() {
         val date = selectedDateLiveData.value!!
 
         val time = selectedTimeLiveData.value!!
-
         return if(today.dayOfMonth == date.date && (today.monthValue - 1) == date.month && today.year == date.year){
             "Today, ${time.getFormattedTime()}"
         }else if(date.date == today.plusDays(1).dayOfMonth && date.year == today.year){
@@ -51,6 +49,5 @@ class CreateTaskViewModel : ViewModel() {
         val focus = previousList[idx]
         previousList[idx] = focus.copy(selected = !focus.selected)
         days.postValue(previousList)
-        
     }
 }

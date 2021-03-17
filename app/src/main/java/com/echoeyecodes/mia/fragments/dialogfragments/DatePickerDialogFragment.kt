@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
+import com.echoeyecodes.mia.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.models.TaskDateModel
 import com.echoeyecodes.mia.R
 

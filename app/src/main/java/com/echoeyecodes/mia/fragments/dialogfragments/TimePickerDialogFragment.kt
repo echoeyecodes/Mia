@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
+import com.echoeyecodes.mia.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.models.TaskTimeModel
 import com.echoeyecodes.mia.R
-import com.echoeyecodes.mia.utils.AndroidUtilities
 
 class TimePickerDialogFragment() : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 

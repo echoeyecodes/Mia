@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.echoeyecodes.jinx.interfaces.CreateTaskFragmentInterface
+import com.echoeyecodes.mia.interfaces.CreateTaskFragmentInterface
 import com.echoeyecodes.jinx.models.TaskDateModel
 import com.echoeyecodes.jinx.models.TaskTimeModel
 import com.echoeyecodes.mia.fragments.bottomsheets.CreateTodoDialogFragment
@@ -74,10 +74,6 @@ class MainActivity : AppCompatActivity(), CreateTaskFragmentInterface {
         return supportFragmentManager.findFragmentByTag(CreateTodoDialogFragment.TAG) as CreateTodoDialogFragment?
     }
 
-    override fun openDateTimeDialog() {
-        getTaskFragment()?.openDateTimeDialog()
-    }
-
     override fun onDateSelected(date: TaskDateModel) {
         getTaskFragment()?.onDateSelected(date)
     }
@@ -88,13 +84,5 @@ class MainActivity : AppCompatActivity(), CreateTaskFragmentInterface {
 
     override fun setDateType(idx: Int) {
         getTaskFragment()?.setDateType(idx)
-    }
-
-    override fun onDefaultDateTimeSelected(date: TaskDateModel, time: TaskTimeModel) {
-        getTaskFragment()?.onDefaultDateTimeSelected(date, time)
-    }
-
-    override fun setIgnoreDateTime(value: Boolean) {
-        getTaskFragment()?.setIgnoreDateTime(value)
     }
 }
